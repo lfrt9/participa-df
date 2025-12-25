@@ -11,7 +11,18 @@
     "test": "vitest",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "test:a11y": "playwright test tests/e2e/specs/p1-criteria/accessibility.spec.ts"
+    "test:e2e:debug": "playwright test --debug",
+    "test:e2e:report": "playwright show-report",
+    "test:a11y": "playwright test tests/e2e/specs/p1-criteria/accessibility.spec.ts",
+    "test:multichannel": "playwright test tests/e2e/specs/p1-criteria/multichannel.spec.ts",
+    "test:ux": "playwright test tests/e2e/specs/p1-criteria/ux-ui.spec.ts",
+    "test:integration": "playwright test tests/e2e/specs/p1-criteria/integration.spec.ts",
+    "test:logic": "playwright test tests/e2e/specs/p2-criteria/logic-flow.spec.ts",
+    "test:responsive": "playwright test tests/e2e/specs/responsiveness/",
+    "test:flow": "playwright test tests/e2e/specs/full-flow/",
+    "test:p1": "playwright test tests/e2e/specs/p1-criteria/",
+    "test:p2": "playwright test tests/e2e/specs/p2-criteria/",
+    "test:all-criteria": "playwright test tests/e2e/specs/p1-criteria/ tests/e2e/specs/p2-criteria/"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
