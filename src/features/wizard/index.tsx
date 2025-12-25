@@ -1,0 +1,6 @@
+export { StepRelato } from './StepRelato'
+export { StepAssunto } from './StepAssunto'
+export { StepResumo } from './StepResumo'
+export { StepIdentificacao } from './StepIdentificacao'
+export { StepAnexos } from './StepAnexos'
+export { StepProtocolo } from './StepProtocolo'
