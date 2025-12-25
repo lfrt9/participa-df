@@ -8,7 +8,11 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'icons/*.png'],
+      includeAssets: ['favicon.svg', 'icons/*.png'],
+      devOptions: {
+        enabled: true,
+        type: 'module'
+      },
       manifest: {
         name: 'Participa DF - Ouvidoria',
         short_name: 'Ouvidoria DF',
@@ -100,5 +104,9 @@ export default defineConfig({
   server: {
     port: 5173,
     host: true
+  },
+  preview: {
+    host: true,
+    allowedHosts: ['localhost', '.loca.lt']
   }
 })

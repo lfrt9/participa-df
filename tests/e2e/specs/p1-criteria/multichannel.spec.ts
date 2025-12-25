@@ -20,11 +20,12 @@ test.describe('Multicanalidade', () => {
 
     test('contador de caracteres deve funcionar', async ({ page }) => {
       const textarea = page.getByRole('textbox')
-      await textarea.fill('Teste de contador')
+      await textarea.fill('Teste de contador de caracteres para verificar que funciona')
 
-      // Verificar que o contador existe e mostra o valor correto
-      const contador = page.locator('text=/\\d+\\/\\d+/')
-      await expect(contador).toBeVisible()
+      // Verificar que o contador existe (formato X/5000)
+      // O contador está dentro de um div com aria-live="polite"
+      const contador = page.locator('[aria-live="polite"]').filter({ hasText: /\d+\/\d+/ })
+      await expect(contador.first()).toBeVisible({ timeout: 5000 })
     })
 
     test('validação min length deve funcionar', async ({ page }) => {

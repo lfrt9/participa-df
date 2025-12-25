@@ -37,6 +37,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
               error ? 'form-input--error' : ''
             } ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
             aria-invalid={error ? 'true' : 'false'}
+            aria-describedby={error ? `${selectId}-error` : undefined}
           >
             <SelectPrimitive.Value placeholder={placeholder} />
             <SelectPrimitive.Icon>
@@ -46,11 +47,13 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
 
           <SelectPrimitive.Portal>
             <SelectPrimitive.Content
-              className="bg-white rounded-xl border shadow-lg overflow-hidden z-50 min-w-[var(--radix-select-trigger-width)]"
+              className="bg-white rounded-xl border shadow-lg overflow-hidden z-50 min-w-[var(--radix-select-trigger-width)] max-h-[min(300px,var(--radix-select-content-available-height))]"
               position="popper"
               sideOffset={4}
+              avoidCollisions={true}
+              collisionPadding={16}
             >
-              <SelectPrimitive.Viewport className="p-1">
+              <SelectPrimitive.Viewport className="p-1 max-h-[280px] overflow-y-auto">
                 {options.map((option) => (
                   <SelectPrimitive.Item
                     key={option.value}
@@ -78,7 +81,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
           </SelectPrimitive.Portal>
         </SelectPrimitive.Root>
         {error && (
-          <p className="form-error" role="alert">
+          <p id={`${selectId}-error`} className="form-error" role="alert">
             {error}
           </p>
         )}

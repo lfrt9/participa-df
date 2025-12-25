@@ -219,13 +219,14 @@ export function FileUpload({
               {file.type === 'image' && file.preview ? (
                 <img
                   src={file.preview}
-                  alt=""
+                  alt={`Prévia de ${file.file.name}`}
                   className="w-12 h-12 object-cover rounded-lg"
                 />
               ) : file.type === 'video' && file.preview ? (
                 <video
                   src={file.preview}
                   className="w-12 h-12 object-cover rounded-lg"
+                  aria-label={`Prévia do vídeo ${file.file.name}`}
                 />
               ) : (
                 <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center text-muted-foreground">

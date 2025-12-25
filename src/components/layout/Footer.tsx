@@ -8,14 +8,14 @@ export function Footer() {
           {/* About */}
           <div>
             <h2 className="font-semibold text-foreground mb-3">Participa DF</h2>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-gray-600">
               Canal oficial de manifestações cidadãs do Governo do Distrito Federal.
               Denúncias, reclamações, sugestões e elogios.
             </p>
           </div>
 
           {/* Links */}
-          <div>
+          <nav aria-label="Links externos úteis">
             <h2 className="font-semibold text-foreground mb-3">Links Úteis</h2>
             <ul className="space-y-2 text-sm">
               <li>
@@ -23,9 +23,10 @@ export function Footer() {
                   href="https://www.cg.df.gov.br"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-[hsl(var(--gdf-blue))] transition-colors"
+                  className="text-gray-600 hover:text-[hsl(var(--gdf-blue))] transition-colors"
                 >
                   Controladoria-Geral do DF
+                  <span className="sr-only"> (abre em nova janela)</span>
                 </a>
               </li>
               <li>
@@ -33,9 +34,10 @@ export function Footer() {
                   href="https://www.df.gov.br"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-[hsl(var(--gdf-blue))] transition-colors"
+                  className="text-gray-600 hover:text-[hsl(var(--gdf-blue))] transition-colors"
                 >
                   Portal do Governo
+                  <span className="sr-only"> (abre em nova janela)</span>
                 </a>
               </li>
               <li>
@@ -43,18 +45,19 @@ export function Footer() {
                   href="https://www.participa.df.gov.br"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-[hsl(var(--gdf-blue))] transition-colors"
+                  className="text-gray-600 hover:text-[hsl(var(--gdf-blue))] transition-colors"
                 >
                   Participa DF Oficial
+                  <span className="sr-only"> (abre em nova janela)</span>
                 </a>
               </li>
             </ul>
-          </div>
+          </nav>
 
           {/* Contact */}
           <div>
             <h2 className="font-semibold text-foreground mb-3">Contato</h2>
-            <ul className="space-y-2 text-sm text-muted-foreground">
+            <ul className="space-y-2 text-sm text-gray-600">
               <li>Central 162 (ligação gratuita)</li>
               <li>ouvidoria@cg.df.gov.br</li>
               <li>Segunda a Sexta, 8h às 18h</li>
@@ -62,7 +65,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t mt-8 pt-6 text-center text-sm text-muted-foreground">
+        <div className="border-t mt-8 pt-6 text-center text-sm text-gray-600">
           <p>
             &copy; {currentYear} Governo do Distrito Federal. Todos os direitos reservados.
           </p>

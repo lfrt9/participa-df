@@ -17,22 +17,13 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo / Brand */}
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-              <svg
-                viewBox="0 0 24 24"
-                className="w-6 h-6 text-[hsl(var(--gdf-blue))]"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-              </svg>
-            </div>
-            <div>
-              <h1 className="font-bold text-lg leading-tight">Participa DF</h1>
-              <p className="text-xs text-blue-200">Ouvidoria do Governo</p>
-            </div>
-          </div>
+          <a href="/" className="flex items-center" aria-label="Participa DF - Página inicial">
+            <img
+              src="/participadf-logo.svg"
+              alt="Participa DF - Ouvidoria do Governo"
+              className="h-8 md:h-10"
+            />
+          </a>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-6" aria-label="Principal">
@@ -40,7 +31,7 @@ export function Header() {
               href="https://www.df.gov.br"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-blue-100 hover:text-white transition-colors"
+              className="text-sm text-white/90 hover:text-white transition-colors"
             >
               Portal GDF
             </a>
@@ -48,7 +39,7 @@ export function Header() {
               href="https://www.cg.df.gov.br"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-blue-100 hover:text-white transition-colors"
+              className="text-sm text-white/90 hover:text-white transition-colors"
             >
               Controladoria-Geral
             </a>
@@ -83,7 +74,7 @@ export function Header() {
                   href="https://www.df.gov.br"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block px-4 py-2 text-blue-100 hover:text-white hover:bg-blue-700 rounded-lg transition-colors"
+                  className="block px-4 py-2 text-white/90 hover:text-white hover:bg-blue-700 rounded-lg transition-colors"
                 >
                   Portal GDF
                 </a>
@@ -93,7 +84,7 @@ export function Header() {
                   href="https://www.cg.df.gov.br"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block px-4 py-2 text-blue-100 hover:text-white hover:bg-blue-700 rounded-lg transition-colors"
+                  className="block px-4 py-2 text-white/90 hover:text-white hover:bg-blue-700 rounded-lg transition-colors"
                 >
                   Controladoria-Geral
                 </a>

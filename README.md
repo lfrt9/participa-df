@@ -1,210 +1,284 @@
-# Participa DF - Ouvidoria PWA
+# Participa DF - Ouvidoria Digital
 
-> Sistema de registro de manifestações cidadãs para a Ouvidoria do Governo do Distrito Federal
+Sistema web progressivo (PWA) para registro de manifestações cidadãs junto à Ouvidoria do Governo do Distrito Federal.
 
-[![WCAG 2.1 AA](https://img.shields.io/badge/WCAG-2.1%20AA-green)](https://www.w3.org/WAI/WCAG21/quickref/)
-[![PWA Ready](https://img.shields.io/badge/PWA-Ready-blue)](https://web.dev/progressive-web-apps/)
-[![React](https://img.shields.io/badge/React-18.2-61dafb)](https://reactjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)](https://www.typescriptlang.org/)
+**Solução desenvolvida para o 1º Hackathon em Controle Social - Desafio Participa DF**
+
+---
+
+## Demonstração em Vídeo
+
+🎥 **Link do vídeo demonstrativo:** [INSERIR LINK DO VÍDEO AQUI]
+
+---
 
 ## Sobre o Projeto
 
-Este PWA foi desenvolvido para o **1º Hackathon em Controle Social - Desafio Participa DF**, permitindo que cidadãos registrem manifestações junto à Ouvidoria do Distrito Federal de forma acessível e intuitiva.
+O **Participa DF** é uma aplicação web moderna que facilita o registro de manifestações cidadãs (denúncias, reclamações, sugestões e elogios) junto à Ouvidoria do Governo do Distrito Federal.
 
-### Funcionalidades Principais
+### Principais Funcionalidades
 
-- **Multicanalidade**: Registro via texto, áudio, imagem e vídeo
-- **Acessibilidade WCAG 2.1 AA**: Interface totalmente acessível
-- **PWA Instalável**: Funciona offline após instalação
-- **Anonimato Opcional**: Manifestações identificadas ou anônimas
-- **Detecção de PII**: Alerta sobre dados pessoais em manifestações anônimas
-- **Protocolo Padronizado**: Formato DF-YYYYMMDD-XXXXX-TT
+- **Multicanal**: Aceita manifestações via texto, áudio, imagem e vídeo
+- **Anonimato**: Opção de registro anônimo com proteção de dados
+- **Acessibilidade**: Conformidade com WCAG 2.1 nível AA
+- **PWA**: Funciona offline e pode ser instalado como aplicativo
+- **Responsivo**: Experiência otimizada para desktop e dispositivos móveis
+- **Protocolo**: Geração automática de número de protocolo para acompanhamento
 
-### Tipos de Manifestação
+---
 
-- 🚨 **Denúncia**: Comunicar irregularidades ou condutas ilegais
-- 📢 **Reclamação**: Relatar insatisfação com serviço público
-- 💡 **Sugestão**: Propor melhorias nos serviços
-- 👍 **Elogio**: Reconhecer um bom atendimento
-- 📋 **Solicitação**: Solicitar um serviço ou providência
-- ❓ **Pedido de Informação**: Solicitar informações sobre serviços
+## Tecnologias e Ferramentas Utilizadas
 
-## Tecnologias
+### Linguagens e Frameworks
+| Tecnologia | Versão | Descrição |
+|------------|--------|-----------|
+| **React** | 18.2.0 | Biblioteca para construção de interfaces |
+| **TypeScript** | 5.3.3 | Superset JavaScript com tipagem estática |
+| **Vite** | 5.0.12 | Build tool e dev server |
+| **Tailwind CSS** | 3.4.1 | Framework CSS utilitário |
 
-| Categoria | Tecnologia |
-|-----------|------------|
-| Framework | React 18 + TypeScript |
-| Build | Vite 5 + vite-plugin-pwa |
-| UI | Radix UI + Tailwind CSS |
-| Estado | Zustand |
-| Formulários | React Hook Form + Zod |
-| Testes | Playwright + axe-core |
+### Bibliotecas Principais
+| Biblioteca | Propósito |
+|------------|-----------|
+| **Zustand** | Gerenciamento de estado global |
+| **React Hook Form** | Gerenciamento de formulários |
+| **Zod** | Validação de schemas |
+| **Radix UI** | Componentes acessíveis |
+| **Lucide React** | Ícones SVG |
+| **LocalForage** | Persistência de dados offline |
+| **react-media-recorder** | Gravação de áudio |
 
-## Instalação
+### PWA e Offline
+| Tecnologia | Propósito |
+|------------|-----------|
+| **vite-plugin-pwa** | Geração do Service Worker |
+| **Workbox** | Estratégias de cache offline |
 
-Consulte o guia completo em [INSTALLATION.md](./INSTALLATION.md).
+### Ferramentas de Desenvolvimento
+| Ferramenta | Propósito |
+|------------|-----------|
+| **Visual Studio Code** | Editor de código |
+| **Git** | Controle de versão |
+| **GitHub** | Repositório remoto |
+| **Node.js / npm** | Runtime e gerenciador de pacotes |
+| **ESLint** | Linting e padrões de código |
+| **Playwright** | Testes E2E |
+| **Vitest** | Testes unitários |
 
-### Início Rápido
+---
+
+## Requisitos do Sistema
+
+- **Node.js** versão 18.x ou superior
+- **npm** versão 9.x ou superior (ou yarn/pnpm)
+
+---
+
+## Instalação e Execução
+
+### 1. Clonar o Repositório
 
 ```bash
-# Clonar repositório
-git clone <url-do-repositorio>
+git clone [URL_DO_REPOSITORIO]
 cd projeto2
+```
 
-# Instalar dependências
+### 2. Instalar Dependências
+
+```bash
 npm install
+```
 
-# Iniciar servidor de desenvolvimento
+### 3. Executar em Modo de Desenvolvimento
+
+```bash
 npm run dev
 ```
 
-Acesse: http://localhost:5173
+A aplicação estará disponível em: `http://localhost:5173`
+
+### 4. Build para Produção
+
+```bash
+npm run build
+```
+
+Os arquivos otimizados serão gerados na pasta `dist/`.
+
+### 5. Visualizar Build de Produção
+
+```bash
+npm run preview
+```
+
+---
+
+## Scripts Disponíveis
+
+| Comando | Descrição |
+|---------|-----------|
+| `npm run dev` | Inicia o servidor de desenvolvimento |
+| `npm run build` | Gera build de produção |
+| `npm run preview` | Visualiza o build de produção |
+| `npm run lint` | Executa o linter (ESLint) |
+| `npm run test` | Executa testes unitários |
+| `npm run test:e2e` | Executa testes E2E com Playwright |
+
+### Scripts de Teste por Critério do Edital
+
+| Comando | Critério | Descrição |
+|---------|----------|-----------|
+| `npm run test:a11y` | P1 - Acessibilidade | Testes WCAG 2.1 AA |
+| `npm run test:multichannel` | P1 - Multicanal | Texto, áudio, imagem, vídeo |
+| `npm run test:ux` | P1 - UX/UI | Experiência do usuário |
+| `npm run test:integration` | P1 - Integração | Integração com sistemas |
+| `npm run test:logic` | P2 - Lógica | Fluxo e validações |
+| `npm run test:responsive` | Responsividade | Desktop, tablet, mobile |
+| `npm run test:flow` | Fluxo completo | Jornada completa do usuário |
+| `npm run test:p1` | Todos P1 | Todos os critérios P1 |
+| `npm run test:p2` | Todos P2 | Todos os critérios P2 |
+| `npm run test:all-criteria` | Todos | Todos os critérios do edital |
+
+---
 
 ## Estrutura do Projeto
 
 ```
 projeto2/
+├── public/                 # Arquivos estáticos (ícones, manifest, etc.)
 ├── src/
-│   ├── App.tsx                    # Componente principal
-│   ├── main.tsx                   # Entry point
-│   ├── styles/globals.css         # Design system
-│   ├── types/manifestation.ts     # Tipos TypeScript
-│   ├── hooks/useWizardStore.ts    # Estado global (Zustand)
-│   ├── services/
-│   │   ├── protocol.service.ts    # Geração de protocolo
-│   │   └── storage.service.ts     # Armazenamento local
-│   ├── components/
-│   │   ├── ui/                    # Componentes de interface
-│   │   ├── layout/                # Layout (Header, Footer)
-│   │   └── media/                 # Gravação/upload de mídia
-│   └── features/wizard/           # Etapas do formulário
-├── tests/e2e/                     # Testes Playwright
-├── public/                        # Assets públicos
-└── playwright.config.ts           # Configuração de testes
+│   ├── components/        # Componentes React
+│   │   ├── form/          # Componentes do formulário wizard
+│   │   ├── layout/        # Header, Footer, Layout
+│   │   ├── media/         # Upload de arquivos, gravação de áudio
+│   │   └── ui/            # Componentes UI reutilizáveis
+│   ├── hooks/             # Custom hooks
+│   ├── lib/               # Utilitários e helpers
+│   ├── stores/            # Estado global (Zustand)
+│   ├── styles/            # CSS global e variáveis
+│   ├── types/             # Definições de tipos TypeScript
+│   └── main.tsx           # Ponto de entrada da aplicação
+├── tests/                 # Testes E2E
+└── package.json
 ```
-
-## Fluxo do Usuário
-
-O registro de manifestação segue um wizard de 6 etapas:
-
-1. **Relato**: Descrever a manifestação (texto, áudio ou arquivos)
-2. **Assunto**: Selecionar tipo e categoria
-3. **Resumo**: Revisar informações
-4. **Identificação**: Escolher identificação ou anonimato
-5. **Anexos**: Adicionar arquivos complementares (opcional)
-6. **Protocolo**: Confirmação com número do protocolo
-
-## Formato do Protocolo
-
-O protocolo segue o padrão:
-
-```
-DF-YYYYMMDD-XXXXX-TT
-
-Onde:
-- DF: Jurisdição (Distrito Federal)
-- YYYYMMDD: Data de registro
-- XXXXX: Número sequencial (00001-99999)
-- TT: Código do tipo + canal (ex: DNT = Denúncia Texto)
-```
-
-Exemplo: `DF-20260127-00042-RCT` (Reclamação via Texto)
-
-## Acessibilidade
-
-O projeto segue as diretrizes WCAG 2.1 nível AA:
-
-- ✅ Contraste de cores 4.5:1 (texto normal) e 3:1 (texto grande)
-- ✅ Navegação completa por teclado
-- ✅ Compatível com leitores de tela (ARIA)
-- ✅ Touch targets mínimo 44x44px
-- ✅ Zoom até 200% sem perda de funcionalidade
-- ✅ Respeita `prefers-reduced-motion`
-- ✅ Semântica HTML5 correta
-
-## Scripts Disponíveis
-
-```bash
-# Desenvolvimento
-npm run dev          # Servidor de desenvolvimento
-npm run build        # Build para produção
-npm run preview      # Preview do build
-
-# Testes
-npm run test:e2e     # Todos os testes E2E
-npm run test:a11y    # Testes de acessibilidade
-npm run test:p1      # Testes critérios P1
-npm run test:p2      # Testes critérios P2
-npm run test:responsive  # Testes de responsividade
-
-# Lint
-npm run lint         # Verificar código
-```
-
-## Testes
-
-Os testes E2E cobrem todos os critérios do edital:
-
-### Critérios P1 (Entrega)
-
-| Critério | Pontuação | Arquivo de Teste |
-|----------|-----------|------------------|
-| Acessibilidade | 2.5 pts | `accessibility.spec.ts` |
-| Multicanalidade | 3.0 pts | `multichannel.spec.ts` |
-| UX/UI | 3.0 pts | `ux-ui.spec.ts` |
-| Integração | 1.5 pts | `integration.spec.ts` |
-
-### Critérios P2 (Código)
-
-| Critério | Pontuação | Arquivo de Teste |
-|----------|-----------|------------------|
-| Lógica | 3.0 pts | `logic-flow.spec.ts` |
-
-### Executar Testes
-
-```bash
-# Instalar browsers do Playwright
-npx playwright install
-
-# Executar todos os testes
-npm run test:e2e
-
-# Visualizar relatório
-npm run test:e2e:report
-```
-
-## PWA (Progressive Web App)
-
-O aplicativo pode ser instalado em dispositivos:
-
-1. Acesse o site em um navegador compatível
-2. Clique em "Instalar" na barra de endereço ou menu
-3. O app ficará disponível na tela inicial
-
-### Funcionalidades Offline
-
-- Interface carrega mesmo sem conexão
-- Manifestações são salvas localmente
-- Sincronização automática quando online
-
-## Contribuição
-
-1. Faça fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/nome`)
-3. Commit suas mudanças (`git commit -m 'feat: Adiciona nova feature'`)
-4. Push para a branch (`git push origin feature/nome`)
-5. Abra um Pull Request
-
-## Licença
-
-Este projeto foi desenvolvido para o 1º Hackathon em Controle Social - Desafio Participa DF.
-
-## Contato
-
-- **Ouvidoria GDF**: 162 (ligação gratuita)
-- **Email**: ouvidoria@cg.df.gov.br
-- **Site**: [participa.df.gov.br](https://www.participa.df.gov.br)
 
 ---
 
-Desenvolvido para o **1º Hackathon em Controle Social - Desafio Participa DF** 🏛️
+## Acessibilidade (Critério P1 - 2.5 pontos)
+
+A aplicação foi desenvolvida seguindo as diretrizes **WCAG 2.1 nível AA**, conforme exigido pelo edital.
+
+### Recursos Implementados
+
+| Recurso | Descrição | Status |
+|---------|-----------|--------|
+| Navegação por teclado | Tab order lógico em todas as páginas | ✅ |
+| Focus visible | Indicadores de foco visíveis em todos elementos | ✅ |
+| Skip links | Atalhos para navegação rápida | ✅ |
+| Contraste | Texto normal 4.5:1, texto grande 3:1 | ✅ |
+| Labels | Todos inputs com labels associados | ✅ |
+| ARIA | Roles e atributos semânticos corretos | ✅ |
+| Alt text | Imagens com textos alternativos | ✅ |
+| aria-live | Regiões para updates dinâmicos | ✅ |
+| Touch targets | Mínimo 44x44px em elementos interativos | ✅ |
+| Reduced motion | Respeita preferência do usuário | ✅ |
+| Zoom 200% | Sem scroll horizontal em zoom | ✅ |
+| ESC para fechar | Modais e dropdowns fecham com ESC | ✅ |
+
+### Executar Testes de Acessibilidade
+
+```bash
+# Instalar Playwright (se necessário)
+npx playwright install
+
+# Executar apenas testes de acessibilidade
+npm run test:a11y
+
+# Executar com interface visual
+npx playwright test tests/e2e/specs/p1-criteria/accessibility.spec.ts --ui
+
+# Executar com debug
+npx playwright test tests/e2e/specs/p1-criteria/accessibility.spec.ts --debug
+```
+
+### Testes Automatizados Cobertos
+
+Os testes utilizam **axe-core** (Deque Systems) para validação automática WCAG:
+
+#### 1. Contraste de Cores
+```bash
+# Verifica contraste mínimo 4.5:1 para texto normal
+# Verifica contraste mínimo 3:1 para texto grande
+npm run test:a11y -- --grep "Contraste"
+```
+
+#### 2. Navegação por Teclado
+```bash
+# Tab order lógico
+# Focus visível em todos elementos
+# Sem keyboard traps
+# Skip links funcionais
+# ESC fecha modais
+npm run test:a11y -- --grep "teclado"
+```
+
+#### 3. Screen Readers (ARIA)
+```bash
+# Labels em todos inputs
+# Alt text em imagens
+# aria-live regions
+# Roles semânticos corretos
+npm run test:a11y -- --grep "ARIA"
+```
+
+#### 4. Outros Critérios WCAG
+```bash
+# Zoom 200% sem scroll horizontal
+# Touch targets 44x44px mínimo
+# prefers-reduced-motion respeitado
+# Análise completa axe-core
+npm run test:a11y -- --grep "WCAG"
+```
+
+### Ferramentas de Acessibilidade Utilizadas
+
+| Ferramenta | Uso |
+|------------|-----|
+| `@axe-core/playwright` | Testes automáticos E2E |
+| `@axe-core/react` | Verificação em desenvolvimento |
+| `eslint-plugin-jsx-a11y` | Linting de acessibilidade |
+| **Radix UI** | Componentes acessíveis por padrão |
+
+### Validação Manual Recomendada
+
+Além dos testes automatizados, recomenda-se validar com:
+
+1. **NVDA** ou **VoiceOver** - Leitores de tela
+2. **Navegação apenas por teclado** - Desabilitar mouse
+3. **Chrome DevTools > Lighthouse** - Audit de acessibilidade
+4. **axe DevTools Extension** - Extensão do navegador
+
+---
+
+## Uso de Inteligência Artificial
+
+Conforme permitido pelo item 13.9 do edital, esta solução utilizou ferramentas de Inteligência Artificial como apoio no desenvolvimento:
+
+- **ChatGPT (OpenAI)**
+- **Claude (Anthropic)**
+
+A IA foi utilizada como ferramenta de apoio. Todo o código foi revisado, testado e validado pela equipe.
+
+---
+
+## Licença
+
+MIT License
+
+---
+
+## Equipe
+
+Desenvolvido para o **1º Hackathon em Controle Social - Desafio Participa DF**
+
+Organizado pela **Controladoria-Geral do Distrito Federal (CGDF)**

@@ -39,7 +39,7 @@ test.describe('Fluxos Completos', () => {
       await page.getByRole('button', { name: /finalizar/i }).click()
 
       // Etapa 6: Protocolo
-      await expect(page.locator('text=/registrada/i')).toBeVisible({ timeout: 10000 })
+      await expect(page.getByRole('heading', { name: /registrada/i })).toBeVisible({ timeout: 10000 })
       await expect(page.locator('text=/DF-\\d{8}-\\d{5}-DNT/')).toBeVisible()
     })
   })
@@ -72,11 +72,11 @@ test.describe('Fluxos Completos', () => {
       await page.getByRole('button', { name: /finalizar/i }).click()
 
       // Etapa 6: Protocolo
-      await expect(page.locator('text=/registrada/i')).toBeVisible({ timeout: 10000 })
+      await expect(page.getByRole('heading', { name: /registrada/i })).toBeVisible({ timeout: 10000 })
       await expect(page.locator('text=/DF-\\d{8}-\\d{5}-RCT/')).toBeVisible()
 
       // Verificar que mostra confirmação de email
-      await expect(page.locator(`text=/${testData.usuario.email}/`)).toBeVisible()
+      await expect(page.getByText(testData.usuario.email)).toBeVisible()
     })
   })
 
@@ -111,7 +111,7 @@ test.describe('Fluxos Completos', () => {
         await page.getByRole('button', { name: /finalizar/i }).click()
 
         // Protocolo
-        await expect(page.locator('text=/registrada/i')).toBeVisible({ timeout: 10000 })
+        await expect(page.getByRole('heading', { name: /registrada/i })).toBeVisible({ timeout: 10000 })
       })
     }
   })

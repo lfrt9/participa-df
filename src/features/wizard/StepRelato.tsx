@@ -110,6 +110,7 @@ export function StepRelato() {
               value={text}
               onChange={(e) => setText(e.target.value)}
               maxLength={5000}
+              showCount={true}
               hint="Mínimo de 20 caracteres para continuar"
               required
             />
