@@ -13,6 +13,13 @@ import type {
   UserData,
 } from '@/types/manifestation'
 
+/** Erros de validação por campo */
+export interface ValidationError {
+  field: string
+  message: string
+  elementId?: string
+}
+
 interface WizardStore extends WizardFormState {
   // Ações de navegação
   setStep: (step: WizardStep) => void
@@ -20,6 +27,7 @@ interface WizardStore extends WizardFormState {
   prevStep: () => void
   canGoNext: () => boolean
   canGoPrev: () => boolean
+  getValidationErrors: () => ValidationError[]
 
   // Ações de dados
   setType: (type: ManifestationType) => void
@@ -114,6 +122,61 @@ export const useWizardStore = create<WizardStore>()(
       canGoPrev: () => {
         const currentIndex = STEPS.indexOf(get().currentStep)
         return currentIndex > 0
+      },
+
+      getValidationErrors: () => {
+        const state = get()
+        const errors: ValidationError[] = []
+
+        switch (state.currentStep) {
+          case 'relato':
+            if (state.text.length < 20 && state.media.length === 0) {
+              errors.push({
+                field: 'relato',
+                message: 'Descreva sua manifestação (mínimo 20 caracteres) ou anexe um arquivo',
+                elementId: 'relato-textarea',
+              })
+            }
+            break
+
+          case 'assunto':
+            if (!state.type) {
+              errors.push({
+                field: 'type',
+                message: 'Selecione o tipo da manifestação',
+                elementId: 'tipo-select',
+              })
+            }
+            if (!state.category) {
+              errors.push({
+                field: 'category',
+                message: 'Selecione a área/assunto',
+                elementId: 'categoria-select',
+              })
+            }
+            break
+
+          case 'identificacao':
+            if (!state.anonymous) {
+              if (!state.user?.nome || state.user.nome.length < 3) {
+                errors.push({
+                  field: 'nome',
+                  message: 'Nome é obrigatório (mínimo 3 caracteres)',
+                  elementId: 'input-nome',
+                })
+              }
+              if (!state.user?.email) {
+                errors.push({
+                  field: 'email',
+                  message: 'E-mail é obrigatório',
+                  elementId: 'input-email',
+                })
+              }
+            }
+            break
+        }
+
+        return errors
       },
 
       // Dados

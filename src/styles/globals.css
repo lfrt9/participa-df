@@ -271,6 +271,17 @@
     @apply border-destructive focus:border-destructive focus:ring-destructive/20;
   }
 
+  /* Highlight for invalid fields when clicking disabled Continue button */
+  .field-invalid-highlight {
+    @apply border-destructive ring-2 ring-destructive/30;
+    animation: pulse-error 0.5s ease-in-out 2;
+  }
+
+  @keyframes pulse-error {
+    0%, 100% { box-shadow: 0 0 0 0 hsl(var(--destructive) / 0.4); }
+    50% { box-shadow: 0 0 0 8px hsl(var(--destructive) / 0); }
+  }
+
   .form-textarea {
     @apply form-input resize-none;
     min-height: 150px;

@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/Input'
 import { Toggle } from '@/components/ui/Toggle'
 import { PIIWarningModal } from '@/components/ui/Modal'
 import { useWizardStore } from '@/hooks/useWizardStore'
+import { useFormValidation } from '@/hooks/useFormValidation'
 import type { UserData } from '@/types/manifestation'
 
 // Simple PII detection patterns (reusing from projeto1 concept)
@@ -42,10 +43,12 @@ export function StepIdentificacao() {
     setHasPII,
     piiWarningDismissed,
     dismissPIIWarning,
+    canGoNext,
     nextStep,
     prevStep,
   } = useWizardStore()
 
+  const { handleDisabledContinueClick } = useFormValidation()
   const [showPIIModal, setShowPIIModal] = useState(false)
   const [detectedEntities, setDetectedEntities] = useState<Array<{ type: string; value: string }>>([])
   const [formData, setFormData] = useState<UserData>({
@@ -71,8 +74,11 @@ export function StepIdentificacao() {
   }, [anonymous, text, piiWarningDismissed, setHasPII])
 
   const handleInputChange = (field: keyof UserData, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }))
+    const newFormData = { ...formData, [field]: value }
+    setFormData(newFormData)
     setErrors(prev => ({ ...prev, [field]: undefined }))
+    // Sync to wizard store for real-time validation
+    setUser(newFormData)
   }
 
   const validateForm = (): boolean => {
@@ -122,43 +128,45 @@ export function StepIdentificacao() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       <div>
         <h2 className="text-2xl font-bold text-foreground">Identificação</h2>
-        <p className="text-muted-foreground mt-2">
+        <p className="text-muted-foreground mt-1">
           Escolha se deseja se identificar ou permanecer anônimo.
         </p>
       </div>
 
       {/* Anonimato toggle */}
-      <div className="bg-white border rounded-xl p-6">
-        <div className="flex items-start gap-4">
-          <div className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
+      <div className="bg-white border rounded-xl p-4 sm:p-6">
+        <div className="flex items-start gap-3 sm:gap-4">
+          <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
             anonymous ? 'bg-amber-100' : 'bg-[hsl(var(--gdf-blue-light))]'
           }`}>
             {anonymous ? (
-              <Shield className="w-6 h-6 text-amber-600" />
+              <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-amber-600" />
             ) : (
-              <User className="w-6 h-6 text-[hsl(var(--gdf-blue))]" />
+              <User className="w-5 h-5 sm:w-6 sm:h-6 text-[hsl(var(--gdf-blue))]" />
             )}
           </div>
-          <div className="flex-1">
-            <div className="flex items-center justify-between">
+          <div className="flex-1 min-w-0">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div>
-                <h3 className="font-semibold text-lg">
+                <h3 className="font-semibold text-base sm:text-lg">
                   {anonymous ? 'Manifestação Anônima' : 'Manifestação Identificada'}
                 </h3>
-                <p className="text-sm text-muted-foreground mt-1">
+                <p className="text-sm text-muted-foreground mt-0.5">
                   {anonymous
                     ? 'Sua identidade será protegida'
                     : 'Você receberá respostas por e-mail'}
                 </p>
               </div>
-              <Toggle
-                checked={anonymous}
-                onCheckedChange={setAnonymous}
-                label="Desejo permanecer anônimo"
-              />
+              <div className="flex-shrink-0">
+                <Toggle
+                  checked={anonymous}
+                  onCheckedChange={setAnonymous}
+                  label="Anônimo"
+                />
+              </div>
             </div>
 
             {anonymous && (
@@ -182,10 +190,11 @@ export function StepIdentificacao() {
 
       {/* Formulário de identificação */}
       {!anonymous && (
-        <div className="bg-white border rounded-xl p-6 space-y-4">
-          <h3 className="font-semibold text-lg mb-4">Seus dados</h3>
+        <div className="bg-white border rounded-xl p-4 sm:p-6 space-y-3">
+          <h3 className="font-semibold text-base sm:text-lg mb-3">Seus dados</h3>
 
           <Input
+            id="input-nome"
             label="Nome completo"
             value={formData.nome}
             onChange={(e) => handleInputChange('nome', e.target.value)}
@@ -196,6 +205,7 @@ export function StepIdentificacao() {
           />
 
           <Input
+            id="input-cpf"
             label="CPF"
             value={formData.cpf}
             onChange={(e) => handleInputChange('cpf', e.target.value)}
@@ -206,6 +216,7 @@ export function StepIdentificacao() {
           />
 
           <Input
+            id="input-email"
             label="E-mail"
             type="email"
             value={formData.email}
@@ -217,6 +228,7 @@ export function StepIdentificacao() {
           />
 
           <Input
+            id="input-telefone"
             label="Telefone"
             type="tel"
             value={formData.telefone}
@@ -233,13 +245,25 @@ export function StepIdentificacao() {
         <Button variant="outline" onClick={prevStep}>
           Voltar
         </Button>
-        <Button
-          variant="primary"
-          onClick={handleContinue}
-          size="lg"
+        <div
+          onClick={!canGoNext() ? handleDisabledContinueClick : undefined}
+          className={!canGoNext() ? 'cursor-pointer' : undefined}
         >
-          Continuar
-        </Button>
+          <Button
+            variant="primary"
+            onClick={canGoNext() ? handleContinue : undefined}
+            disabled={!canGoNext()}
+            size="lg"
+            aria-describedby={!canGoNext() ? 'validation-hint-identificacao' : undefined}
+          >
+            Continuar
+          </Button>
+        </div>
+        {!canGoNext() && (
+          <span id="validation-hint-identificacao" className="sr-only">
+            Clique para ver os campos que precisam ser preenchidos
+          </span>
+        )}
       </div>
 
       {/* PII Warning Modal */}

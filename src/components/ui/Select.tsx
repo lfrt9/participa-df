@@ -9,6 +9,7 @@ interface SelectOption {
 }
 
 interface SelectProps {
+  id?: string
   value?: string
   onValueChange: (value: string) => void
   options: SelectOption[]
@@ -19,8 +20,8 @@ interface SelectProps {
 }
 
 export const Select = forwardRef<HTMLButtonElement, SelectProps>(
-  ({ value, onValueChange, options, placeholder = 'Selecione...', label, error, disabled }, ref) => {
-    const selectId = `select-${Math.random().toString(36).slice(2, 9)}`
+  ({ id, value, onValueChange, options, placeholder = 'Selecione...', label, error, disabled }, ref) => {
+    const selectId = id || `select-${Math.random().toString(36).slice(2, 9)}`
 
     return (
       <div className="w-full">

@@ -5,12 +5,14 @@ import { Button } from '@/components/ui/Button'
 import { AudioRecorder } from '@/components/media/AudioRecorder'
 import { FileUpload } from '@/components/media/FileUpload'
 import { useWizardStore } from '@/hooks/useWizardStore'
+import { useFormValidation } from '@/hooks/useFormValidation'
 import type { MediaFile } from '@/types/manifestation'
 
 type TabType = 'text' | 'audio' | 'files'
 
 export function StepRelato() {
   const { text, setText, media, addMedia, canGoNext, nextStep } = useWizardStore()
+  const { handleDisabledContinueClick } = useFormValidation()
   const [activeTab, setActiveTab] = useState<TabType>('text')
   const [uploadedFiles, setUploadedFiles] = useState<Array<{ id: string; file: File; preview?: string; type: 'image' | 'video' | 'document' }>>([])
 
@@ -56,10 +58,10 @@ export function StepRelato() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       <div>
         <h2 className="text-2xl font-bold text-foreground">Seu Relato</h2>
-        <p className="text-muted-foreground mt-2">
+        <p className="text-muted-foreground mt-1">
           Conte o que aconteceu. Você pode escrever, gravar um áudio ou anexar arquivos.
         </p>
       </div>
@@ -105,6 +107,7 @@ export function StepRelato() {
         >
           {activeTab === 'text' && (
             <Textarea
+              id="relato-textarea"
               label="Descreva sua manifestação"
               placeholder="Descreva os fatos de forma clara e objetiva. Inclua datas, locais e pessoas envolvidas, se souber."
               value={text}
@@ -169,14 +172,25 @@ export function StepRelato() {
 
       {/* Continue button */}
       <div className="flex justify-end pt-4 border-t">
-        <Button
-          variant="primary"
-          onClick={nextStep}
-          disabled={!canGoNext()}
-          size="lg"
+        <div
+          onClick={!canGoNext() ? handleDisabledContinueClick : undefined}
+          className={!canGoNext() ? 'cursor-pointer' : undefined}
         >
-          Continuar
-        </Button>
+          <Button
+            variant="primary"
+            onClick={canGoNext() ? nextStep : undefined}
+            disabled={!canGoNext()}
+            size="lg"
+            aria-describedby={!canGoNext() ? 'validation-hint' : undefined}
+          >
+            Continuar
+          </Button>
+        </div>
+        {!canGoNext() && (
+          <span id="validation-hint" className="sr-only">
+            Clique para ver os campos que precisam ser preenchidos
+          </span>
+        )}
       </div>
     </div>
   )

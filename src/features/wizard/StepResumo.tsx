@@ -36,16 +36,16 @@ export function StepResumo() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       <div>
         <h2 className="text-2xl font-bold text-foreground">Resumo</h2>
-        <p className="text-muted-foreground mt-2">
+        <p className="text-muted-foreground mt-1">
           Confira os dados da sua manifestação antes de continuar.
         </p>
       </div>
 
       {/* Cards de resumo */}
-      <div className="space-y-4">
+      <div className="space-y-3">
         {/* Tipo e categoria */}
         <div className="bg-white border rounded-xl p-4 space-y-3">
           <div className="flex items-center justify-between">

@@ -55,10 +55,10 @@ export function StepAnexos() {
   const maxTotalFiles = 10
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       <div>
         <h2 className="text-2xl font-bold text-foreground">Anexos Adicionais</h2>
-        <p className="text-muted-foreground mt-2">
+        <p className="text-muted-foreground mt-1">
           Adicione mais arquivos para complementar sua manifestação (opcional).
         </p>
       </div>

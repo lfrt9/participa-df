@@ -18,8 +18,8 @@ interface FileUploadProps {
 }
 
 const acceptedTypes = {
-  image: ['image/jpeg', 'image/png', 'image/webp'],
-  video: ['video/mp4', 'video/webm'],
+  image: ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif'],
+  video: ['video/mp4', 'video/webm', 'video/quicktime', 'video/3gpp'],
   document: ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
 }
 
