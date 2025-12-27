@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { MessageSquare, Mic, Image } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { MessageSquare, Mic, Image, X } from 'lucide-react'
 import { Textarea } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
 import { AudioRecorder } from '@/components/media/AudioRecorder'
@@ -11,10 +11,26 @@ import type { MediaFile } from '@/types/manifestation'
 type TabType = 'text' | 'audio' | 'files'
 
 export function StepRelato() {
-  const { text, setText, media, addMedia, canGoNext, nextStep } = useWizardStore()
+  const { text, setText, media, addMedia, removeMedia, canGoNext, nextStep } = useWizardStore()
   const { handleDisabledContinueClick } = useFormValidation()
   const [activeTab, setActiveTab] = useState<TabType>('text')
   const [uploadedFiles, setUploadedFiles] = useState<Array<{ id: string; file: File; preview?: string; type: 'image' | 'video' | 'document' }>>([])
+
+  // Sincronizar estado local com mídia do store ao montar/voltar
+  useEffect(() => {
+    const existingFiles = media
+      .filter(m => m.type === 'image' || m.type === 'video')
+      .map(m => ({
+        id: m.id,
+        file: m.file as File,
+        preview: m.url,
+        type: m.type as 'image' | 'video' | 'document',
+      }))
+
+    if (existingFiles.length > 0 && uploadedFiles.length === 0) {
+      setUploadedFiles(existingFiles)
+    }
+  }, [media])
 
   const tabs = [
     { id: 'text' as TabType, label: 'Texto', icon: MessageSquare },
@@ -37,8 +53,15 @@ export function StepRelato() {
   }
 
   const handleFilesChange = (files: typeof uploadedFiles) => {
+    // Detectar arquivos removidos e deletar do store
+    const removedFiles = uploadedFiles.filter(
+      existing => !files.some(f => f.id === existing.id)
+    )
+    removedFiles.forEach(f => removeMedia(f.id))
+
     setUploadedFiles(files)
-    // Sync with wizard store
+
+    // Sync novos arquivos com wizard store
     files.forEach(f => {
       const existingMedia = media.find(m => m.id === f.id)
       if (!existingMedia) {
@@ -137,10 +160,31 @@ export function StepRelato() {
                 maxDuration={300}
               />
               {media.filter(m => m.type === 'audio').length > 0 && (
-                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                  <p className="text-green-800 font-medium">
-                    Áudio gravado com sucesso!
-                  </p>
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-foreground">Áudios gravados:</p>
+                  <ul className="space-y-2">
+                    {media.filter(m => m.type === 'audio').map((audio) => (
+                      <li key={audio.id} className="flex items-center justify-between bg-muted/50 rounded-lg p-3">
+                        <div className="flex items-center gap-3">
+                          <Mic className="w-5 h-5 text-muted-foreground" />
+                          <div>
+                            <p className="text-sm font-medium">{audio.name}</p>
+                            <p className="text-xs text-muted-foreground">
+                              {audio.duration ? `${Math.floor(audio.duration / 60)}:${String(Math.floor(audio.duration % 60)).padStart(2, '0')}` : 'Áudio'}
+                            </p>
+                          </div>
+                        </div>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => removeMedia(audio.id)}
+                          className="text-destructive hover:text-destructive"
+                        >
+                          <X className="w-4 h-4" />
+                        </Button>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               )}
             </div>

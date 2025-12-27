@@ -74,6 +74,11 @@ export function AudioRecorder({ onRecordingComplete, maxDuration = 300 }: AudioR
         setAudioUrl(url)
         onRecordingComplete(blob, duration)
         stream.getTracks().forEach(track => track.stop())
+
+        // Resetar após um breve delay para dar feedback visual
+        setTimeout(() => {
+          resetRecording()
+        }, 1500)
       }
 
       mediaRecorder.start()
@@ -156,12 +161,12 @@ export function AudioRecorder({ onRecordingComplete, maxDuration = 300 }: AudioR
             <p className="font-medium">
               {state === 'idle' && 'Gravar áudio'}
               {state === 'recording' && 'Gravando...'}
-              {state === 'stopped' && 'Gravação concluída'}
+              {state === 'stopped' && 'Áudio salvo!'}
             </p>
             <p className="text-sm text-muted-foreground">
               {state === 'idle' && `Máximo ${maxDuration / 60} minutos`}
               {state === 'recording' && 'Clique em parar quando terminar'}
-              {state === 'stopped' && 'Você pode ouvir ou gravar novamente'}
+              {state === 'stopped' && 'Você pode gravar outro em seguida'}
             </p>
           </div>
         </div>
@@ -230,7 +235,7 @@ export function AudioRecorder({ onRecordingComplete, maxDuration = 300 }: AudioR
               onClick={resetRecording}
               leftIcon={<RotateCcw className="w-5 h-5" />}
             >
-              Gravar novamente
+              Gravar outro
             </Button>
           </>
         )}
