@@ -10,7 +10,7 @@ Sistema web progressivo (PWA) para registro de manifestações cidadãs junto à
 
 ## Demonstração em Vídeo
 
-🎥 **Link do vídeo demonstrativo:** [INSERIR LINK DO VÍDEO AQUI]
+🎥 **Link do vídeo demonstrativo:** [https://youtu.be/VUf5V293ydc](https://youtu.be/VUf5V293ydc)
 
 ---
 
